@@ -16,13 +16,12 @@ class QuestionsController < ApplicationController
 	end
 
 	def create
-		@question = current_user.questions.new(question_params)
+		@question = current_user.questions.new(content: params[:content])
 		if @question.save
-			redirect_to @question
+			redirect_to @question 
 		else
-			format.html { redirect_to_root_path, notice: "Failed to post question" }
+			redirect_to root_path
 		end
-
 	end
 
 	private
@@ -31,7 +30,4 @@ class QuestionsController < ApplicationController
 		@question = Question.find(params[:id])
 	end
 
-	def question_params
-		params.require(:question).permit(:user_id, :content)
-	end
 end
