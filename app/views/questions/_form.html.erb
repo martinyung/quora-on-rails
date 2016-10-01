@@ -1,0 +1,19 @@
+<%= form_for @question, html: {multipart: true} do |f| %>
+  <% if @question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this listing from being saved:</h2>
+
+      <ul>
+      <% @question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+  	<%= f.label :Question %><br>
+  	<%= f.text_field :content %><br>
+  	<%= f.submit %>
+  </div>
+<% end %>  	

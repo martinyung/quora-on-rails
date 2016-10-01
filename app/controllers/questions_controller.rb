@@ -24,10 +24,24 @@ class QuestionsController < ApplicationController
 		end
 	end
 
+	def update
+		@question.update(question_params)
+		redirect_to @question
+	end
+
+	def destroy
+		@question.destroy
+		redirect_to root_path
+	end
+
 	private
 
 	def set_question
 		@question = Question.find(params[:id])
+	end
+
+	def question_params
+		params.require(:question).permit(:content)
 	end
 
 end

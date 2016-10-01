@@ -1,1 +1,5 @@
 <p><%= @question.content %></p>
+<% if user_signed_in? and current_user.id == @question.user_id %>
+	<button class="btn btn-default"><%= link_to 'Edit Question', edit_question_path(@question)%></button>
+	<button class="btn btn-default"><%= link_to 'Delete Question', @question, method: :delete, data: {confirm: 'Are you sure?' } %></button>
+<% end %>	
