@@ -1,5 +1,21 @@
 <p><%= @question.content %></p>
-<% if user_signed_in? and current_user.id == @question.user_id %>
-	<button class="btn btn-default"><%= link_to 'Edit Question', edit_question_path(@question)%></button>
-	<button class="btn btn-default"><%= link_to 'Delete Question', @question, method: :delete, data: {confirm: 'Are you sure?' } %></button>
+
+<% if user_signed_in? %>
+	<% if current_user.id == @question.user_id %>
+		<button class="btn btn-default"><%= link_to 'Edit Question', edit_question_path(@question)%></button>
+		<button class="btn btn-default"><%= link_to 'Delete Question', @question, method: :delete, data: {confirm: 'Are you sure?' } %></button>
+	<% end %>
+	<%= link_to 'Answer', new_question_answer_path(@question) %>
 <% end %>	
+
+<% @answers.each do |answer| %>
+	<li><%= answer.answer %></li>
+	<% if user_signed_in? and current_user.id == answer.user_id %>
+		<button class="btn btn-default"><%= link_to 'Edit Answer', edit_answer_path(answer)%></button>
+		<button class="btn btn-default"><%= link_to 'Delete Answer', answer, method: :delete, data: {confirm: 'Are you sure?' } %></button>
+		<br>
+	<% end %>
+<% end %>
+
+
+
