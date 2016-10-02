@@ -1,9 +1,8 @@
-<p>Root page</p>
-
 <div class="list-group">
 		<% if @questions %>
 			<% @questions.each do |question| %>
 				<li class="list-group-item-text"><%= link_to question.content, question %></li>
+					<%= question.answers.last.answer %>
 				<hr>
 			<% end %>
 		<% end %>
