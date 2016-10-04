@@ -3,9 +3,9 @@ class QuestionVotesController < ApplicationController
 
 	def create
 		@question = Question.find(params[:question_id])
-		vote_type = params[:commit]
+		vote_type =  params[:commit][0..3]
 		@vote = QuestionVote.find_by(question_id: @question.id, user_id: current_user.id)
-		if vote_type == "Upvote"
+		if vote_type == "Upvo"
 			if @vote # Check if question has been voted by user
 				if @vote.vote == 1 # Check if vote is an upvote
 					@message = "You can only upvote once per question"
@@ -20,7 +20,7 @@ class QuestionVotesController < ApplicationController
 				current_user.question_votes.create(question_id: @question.id, vote: 1)
 				redirect_to @question
 			end
-		elsif vote_type == "Downvote"
+		elsif vote_type == "Down"
 			if @vote # Check if question has been voted by user
 				if @vote.vote == 0 # Check if vote is an downvote
 					@message = "You can only downvote once per question"
