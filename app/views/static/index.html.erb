@@ -1,9 +1,17 @@
 <div class="list-group">
-		<% if @questions %>
-			<% @questions.each do |question| %>
-				<li class="list-group-item-text"><%= link_to question.content, question %></li>
-					<%= question.answers.last.answer %>
-				<hr>
-			<% end %>
+	<% if @questions %>
+		<% @questions.each do |question| %>
+			<li class="list-group-item-text"><%= link_to question.content, question %></li>
+			<%= question.answers.last.answer if question.answers.last %>
+			<% upvote_count = question.count_upvotes %>
+			<% downvote_count = question.count_downvotes %>
+			<div class="input-group">
+	  		<%= form_tag(question_question_votes_path(question), method: "post", class: 'form-overlay') do %>
+	    		<%= submit_tag("Upvote | #{upvote_count}", class: 'btn btn-info btn-xs form-control') %>
+	    		<%= submit_tag("Downvote | #{downvote_count}", class: 'btn btn-default btn-xs form-control') %>
+	  		<% end %>
+			</div>
+			<hr>
 		<% end %>
-	</div>
+	<% end %>
+</div>

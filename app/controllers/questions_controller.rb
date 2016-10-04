@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
 	before_action :set_question, only: [:edit, :show, :update, :destroy]
+	before_action :require_login, only: [:create, :update, :destroy]
 
 	def index
 		@questions = Question.all
@@ -43,6 +44,13 @@ class QuestionsController < ApplicationController
 
 	def question_params
 		params.require(:question).permit(:content)
+	end
+
+	def require_login
+		unless user_signed_in?
+			flash[:alert] = "You must logged in to perform this action"
+			redirect_to new_user_session_path
+		end
 	end
 
 end
