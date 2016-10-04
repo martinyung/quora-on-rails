@@ -10,6 +10,14 @@
 
 <% @answers.each do |answer| %>
 	<li><%= answer.answer %></li>
+	<% upvote_count = answer.count_upvotes %>
+	<% downvote_count = answer.count_downvotes %>
+	<div class="input-group">
+		<%= form_tag(answer_answer_votes_path(answer), method: "post", class: 'form-overlay') do %>
+  		<%= submit_tag("Upvote | #{upvote_count}", class: 'btn btn-info btn-xs form-control') %>
+  		<%= submit_tag("Downvote | #{downvote_count}", class: 'btn btn-default btn-xs form-control') %>
+		<% end %>
+	</div
 	<% if user_signed_in? and current_user.id == answer.user_id %>
 		<button class="btn btn-default"><%= link_to 'Edit Answer', edit_answer_path(answer)%></button>
 		<button class="btn btn-default"><%= link_to 'Delete Answer', answer, method: :delete, data: {confirm: 'Are you sure?' } %></button>

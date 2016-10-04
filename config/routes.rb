@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   root 'static#index'
   resources :questions do
   	resources :answers, except: [:index, :destroy, :edit, :update]
-  	resources :question_votes, only:[:create]
+  	resources :question_votes, only: [:create]
   end
-  resources :answers, only: [:destroy, :edit, :update]
+  resources :answers, only: [:destroy, :edit, :update] do
+  	resources :answer_votes, only: [:create]
+  end
 end
